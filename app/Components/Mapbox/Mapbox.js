@@ -39,7 +39,7 @@ function Mapbox() {
   }
 
   return (
-    <div className="flex-1 basis-[50%] border rounded-lg">
+    <div className="flex-1 basis-[50%] border-auto rounded-lg w-full">
       <MapContainer
         center={[activeCityCords.lat, activeCityCords.lon]}
         zoom={13}
