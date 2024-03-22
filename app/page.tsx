@@ -85,20 +85,21 @@ export default function Home() {
         </div>
       </div>
 
-      <footer className="py-4 flex justify-center pb-8">
+      <footer className="py-4 flex justify-center pb-4">
         <p className="footer-text text-sm flex items-center gap-1">
           Made by
-          <Image src={"/logo-white.svg"} alt="logo" width={20} height={20} />
           <a
-            href="https://thecodedealer.com"
+            href="https://matt-f.vercel.app/"
             target="_blank"
-            rel="noopener noreferrer" // Add rel="noopener noreferrer" for security reasons
             className=" text-green-300 font-bold"
           >
-            TheCodeDealer
+            Matt.F | © 2024
           </a>
         </p>
       </footer>
+      <span className="justify-center pb-8 text-xs flex items-center gap-1">
+      Built with React & Next.js, Shadcn, TypeScript, Tailwind CSS,  OpenWeatherMap, OpenMeteo, React Leaflet, Vercel hosting.
+      </span>
     </main>
   );
 }
