@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
+import dynamic from 'next/dynamic';
 import AirPollution from "./Components/AirPollution/AirPollution";
 import DailyForecast from "./Components/DailyForecast/DailyForecast";
 import FeelsLike from "./Components/FeelsLike/FeelsLike";
 import Humidity from "./Components/Humidity/Humidity";
-import Mapbox from "./Components/Mapbox/Mapbox";
+// ... other imports
 import Navbar from "./Components/Navbar";
 import Population from "./Components/Population/Population";
 import Pressure from "./Components/Pressure/Pressure";
@@ -17,16 +18,24 @@ import defaultStates from "./utils/defaultStates";
 import FiveDayForecast from "./Components/FiveDayForecast/FiveDayForecast";
 import { useGlobalContextUpdate } from "./context/globalContext";
 
+// Dynamically import the Mapbox component with SSR disabled
+const MapboxNoSSR = dynamic(() => import('./Components/Mapbox/Mapbox'), {
+  ssr: false
+});
+
 export default function Home() {
   const { setActiveCityCoords } = useGlobalContextUpdate();
 
   const getClickedCityCords = (lat: number, lon: number) => {
     setActiveCityCoords([lat, lon]);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    // Ensure this code only runs on the client side
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -51,7 +60,7 @@ export default function Home() {
             <Pressure />
           </div>
           <div className="mapbox-con mt-4 flex gap-4">
-            <Mapbox />
+            <MapboxNoSSR /> {/* Dynamically imported Mapbox component */}
             <div className="states flex flex-col gap-3 flex-1">
               <h2 className="flex items-center gap-2 font-medium">
                 Top Large Cities
@@ -83,6 +92,7 @@ export default function Home() {
           <a
             href="https://thecodedealer.com"
             target="_blank"
+            rel="noopener noreferrer" // Add rel="noopener noreferrer" for security reasons
             className=" text-green-300 font-bold"
           >
             TheCodeDealer
